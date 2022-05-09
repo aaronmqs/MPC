@@ -12,6 +12,8 @@ A1 = [0 2]';
 C = eye(2);
 D = 0;
 
+% Q = alpha/P
+% Y = K/P
 P = sdpvar(size(A0,1),size(A0,1),'symmetric');
 Q = sdpvar(size(A0,1),size(A0,1),'symmetric');
 Y = sdpvar(size(A1,2),size(A0,2));
