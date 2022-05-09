@@ -22,6 +22,7 @@ The project is still under development and the next updates will focus on the fo
 - [x] CARIMA Model using Control Signal as optimization variable (Parallel Representation)
 - [ ] CARIMA Model using Control Effort as optimization variable for a Time-Delay System (for unstable and stable processes)
 - [ ] CARIMA Model using Control Effort as optimization variable for a Time-Delay System (Conceptual Structure)
+- [ ] CARIMA Model for Cascading Processes with Time-Delay (Ackerman's Formula for Pole Allocation)
 - [ ] CARIMA Model using Control Signal as optimization variable for a Time-Delay System (Parallel Representation)
 - [ ] CARIMA Model using Control Effort as optimization variable with constraints on the Control Signal for a TISO (Two Inputs-Single Output) System
 - [ ] Delay-Independent Controller Synthesis via LMIs (Linear Matrix Inequalities) based on Razumikhin Theorem
@@ -111,6 +112,7 @@ Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contr
 --->
 ## 🔍 References
 * https://github.com/iuricode/README-template/blob/main/README-repository/iuricode.md
+* Model Predictive Control (MPC) course lecture notes - Prof. Bismark Claure Torrico (2022.1) - Master's Program in Electrical Engineering - Federal University of Ceara.
 
 ## 📝 License
 
