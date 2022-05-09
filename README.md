@@ -25,6 +25,7 @@ The project is still under development and the next updates will focus on the fo
 - [ ] CARIMA Model for Cascading Processes with Time-Delay (Ackerman's Formula for Pole Allocation)
 - [ ] CARIMA Model using Control Signal as optimization variable for a Time-Delay System (Parallel Representation)
 - [ ] CARIMA Model using Control Effort as optimization variable with constraints on the Control Signal for a TISO (Two Inputs-Single Output) System
+- [ ] Remember about the Cauchy Theorem amd the Nyquist Criterion
 - [ ] Delay-Independent Controller Synthesis via LMIs (Linear Matrix Inequalities) based on Razumikhin Theorem
 
 ## 💻 Requirements to start this project:
