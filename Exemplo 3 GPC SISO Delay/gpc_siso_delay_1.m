@@ -88,8 +88,8 @@ t = 0:Ts:Tsim;
 
 figure
 step(P);
-%plot(h0,'k','LineWidth',3);
 ylabel('Output')
+title("Open-loop response")
 legend('y(t)')
 grid on
 
