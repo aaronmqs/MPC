@@ -27,8 +27,13 @@ Ab = Ab';
 Bb = Bb';
 Hb = Hb';
 
-N = 5; % prediction horizon
-Nu = 2; % Horizonte de controle
+N = 2; % prediction horizon
+Nu = 1; % Horizonte de controle
+
+if Nu > N
+    errordlg('Use a Control Horizon smaller than the Prediction Horizon','Invalid Control Horizon.');
+    return
+end
 
 G = cell(N); 
 E = cell(N,1);
