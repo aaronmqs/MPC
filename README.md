@@ -14,7 +14,7 @@
 ![untitled](https://user-images.githubusercontent.com/68541168/167444500-72112256-3e1e-44cc-a940-4409e1e033c3.png)
 
 
-### Adjustments and improvements
+### Tasks
 
 The project is still under development and the next updates will focus on the following tasks:
 
@@ -119,4 +119,4 @@ Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contr
 
 This project is under license. See the [LICENSE](LICENSE) file for more details.
 
-[⬆ Back to the top](https://github.com/aaronmqs/MPC/edit/main/README.md#model-predictive-control)<br>
+[⬆ Back to the top](https://github.com/aaronmqs/MPC#model-predictive-control)<br>
