@@ -1,9 +1,9 @@
 clc, clear, close all;
 
-% Parâmetros do processo
+% Process parameters
 tau1 = 20;
-tau2 = 50;
-Ts = 1; % tempo de amostragem
+tau2 = -50;
+Ts = 1; % Sampling time
 z = tf('z',Ts);
 s = tf('s');
 L = 10;
@@ -12,16 +12,16 @@ P = exp(-L*s)/((tau1*s + 1)*(tau2*s + 1));
 Pd  = c2d(P,Ts);
 [num,den]  = tfdata(Pd,'v');
 
-% Parâmetros do modelo CARIMA
+% CARIMA Model Parameters
 a = den;
 b = num;
-alfa = 0.9; % parâmetro de ajuste
+alfa = 0.1; % tuning parameter (robustness)
 c = conv([1 -alfa],[1 -alfa]);
 delta = [1 -1];
 a_til = conv(delta,a);
 d = a_til;
 [a_til,b] = eqtflength(a_til,b);
-[c,d] = eqtflength(c,d); % necessário para usar o tf2ss
+[c,d] = eqtflength(c,d); % required for correctly using tf2ss
 
 % Space-State Model
 [A,H,B,~] = tf2ss(b,a_til);
@@ -32,11 +32,18 @@ H = H';
 [~,~,D,~] = tf2ss(c,d);
 D = D';
 
-% Parâmetros de controle
-N = 1; % Horizonte de predição
-Nu = 1; % Horizonte de controle
+%% Control Parameters
+lambda = 0.001; % Control effort weight in the cost function
+delta = 1; % Reference tracking weight in the cost function 
+N = 10; % Prediction horizon
+Nu = 4; % Control horizon
 
-% FIR Filter
+if Nu > N
+    errordlg('Use a Control Horizon not greater than the Prediction Horizon','Invalid Control Horizon.');
+    return
+end
+
+%% FIR Filter
 FFilter = cell(1,Ld+1);
 for i = 1:Ld+1
     if i == 1
@@ -46,9 +53,13 @@ for i = 1:Ld+1
     end
 end
 
+% Defining the FIR filter as the coefficients of a discrete time polynomial
 FFilter = cell2mat(FFilter);
 
-% Matrix definitions
+% Defining the FIR Filter as a discrete time polynomial
+% FFilter = (eye(size(A)) - (z^-(Ld))*A^(Ld))*(z*eye(size(A)) - A)\B;
+
+%% Matrix definitions
 F = cell(N,1);
 G = cell(N,Nu);
 
@@ -65,73 +76,45 @@ for i = 1:N
 
 end
 
-Ftil = (eye(size(A)) - (z^-(Ld))*A^(Ld))*(z*eye(size(A)) - A)\B;
-
 F = cell2mat(F);
 G = cell2mat(G);
-lambda = 1;
-delta = 1;
-Qlambda = lambda*eye(size(G,2)); % peso do esforço de controle no custo
-Qdelta = delta*eye(size(G,1)); % peso do erro de seguimento à referência no custo 
+Qlambda = lambda*eye(size(G,2)); % Control effort weight in the cost function
+Qdelta = delta*eye(size(G,1)); % Reference tracking weight in the cost function 
 
 Aux = (G'*Qdelta*G + Qlambda)\G'*Qdelta;
 K = Aux(size(B,2),:);
+KF = K*F;
+KFFIR = KF*FFilter;
 Kr = sum(K);
 
-% simulação no simulink
+%% Simulation
 
-Tsim = 800;
+Tsim = 300;
 sim1 = sim('gpc_siso_delay_1_sim');
 y = sim1.y;
 u = sim1.u;
+ref = sim1.ref;
 t = 0:Ts:Tsim;
 
-figure
-step(P);
+subplot(3,1,1)
+y_ol = step(P,t);
+plot(t,y_ol,'k',t,ref,'b','LineWidth',3);
 ylabel('Output')
 title("Open-loop response")
-legend('y(t)')
+legend('y(t)','Ref')
 grid on
 
-figure
-subplot(2,1,1)
-h1 = plot(t,y,'k','LineWidth',3);
+subplot(3,1,2)
+h1 = plot(t,y,'k',t,ref,'b','LineWidth',3);
+ylim([0 1.2])
 ylabel('Output')
-legend('y(t)')
+legend('y(t)','Ref')
 grid on
-title("Outpupt and Control Signal for N = " + N + " and Nu = " + Nu)
-subplot(2,1,2)
+title("Outpupt for N = " + N + " and Nu = " + Nu)
+subplot(3,1,3)
 h2 = stairs(t,u,'b','LineWidth',3);
+title("Control Signal for N = " + N + " and Nu = " + Nu)
 legend('u(t)')
 ylabel('Control Signal')
 xlabel('Discrete time')
 grid on
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
