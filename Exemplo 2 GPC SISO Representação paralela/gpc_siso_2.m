@@ -31,7 +31,7 @@ N = 2; % prediction horizon
 Nu = 1; % Horizonte de controle
 
 if Nu > N
-    errordlg('Use a Control Horizon smaller than the Prediction Horizon','Invalid Control Horizon.');
+    errordlg('Use a Control Horizon not greater than the Prediction Horizon','Invalid Control Horizon.');
     return
 end
 
