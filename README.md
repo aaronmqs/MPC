@@ -115,6 +115,7 @@ Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contr
 ## 🔍 References
 * https://github.com/iuricode/README-template/blob/main/README-repository/iuricode.md
 * Model Predictive Control (MPC) course lecture notes - Prof. Bismark Claure Torrico (2022.1) - Master's Program in Electrical Engineering - Federal University of Ceara.
+* Stability of Time-Delay Systems - Keqin Gu, Vladimir L. Kharitonov and Jie Chen
 
 ## 📝 License
 
