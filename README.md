@@ -13,22 +13,6 @@
 
 ![untitled](https://user-images.githubusercontent.com/68541168/167444500-72112256-3e1e-44cc-a940-4409e1e033c3.png)
 
-
-### Tasks
-
-The project is still under development and the next updates will focus on the following tasks:
-
-- [x] CARIMA Model using Control Effort as optimization variable
-- [x] CARIMA Model using Control Signal as optimization variable (Parallel Representation)
-- [x] CARIMA Model using Control Effort as optimization variable for a Time-Delay System (for unstable and stable processes)
-- [ ] CARIMA Model using Control Effort as optimization variable for a Time-Delay System (Conceptual Structure)
-- [ ] CARIMA Model for Cascading Processes with Time-Delay (Ackerman's Formula for Pole Allocation)
-- [ ] CARIMA Model using Control Signal as optimization variable for a Time-Delay System (Parallel Representation)
-- [ ] CARIMA Model using Control Effort as optimization variable with constraints on the Control Signal for a TISO (Two Inputs-Single Output) System
-- [ ] Remember about the Cauchy Theorem amd the Nyquist Criterion
-- [ ] Delay-Independent Controller Synthesis via LMIs (Linear Matrix Inequalities) based on Razumikhin Theorem
-- [ ] Delay-Dependent Controller Synthesis via LMIs (Linear Matrix Inequalities)
-
 ## 💻 Requirements to start this project:
 
 Before starting, make sure you've met the following requirements:
