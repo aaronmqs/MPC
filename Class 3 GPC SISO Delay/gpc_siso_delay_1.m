@@ -2,7 +2,7 @@ clc, clear, close all;
 
 % Process parameters
 tau1 = 20;
-tau2 = -50;
+tau2 = 50; % it's possible to use negative values for tau
 Ts = 1; % Sampling time
 z = tf('z',Ts);
 s = tf('s');
