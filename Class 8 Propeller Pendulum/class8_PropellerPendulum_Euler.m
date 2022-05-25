@@ -40,20 +40,20 @@ for k = 1:N
 end
 
 subplot(3,1,1)
+stairs(Ts*(1:N),u,"LineWidth",1)
+title("a = " + a + "")
+ylabel("Input Signal Signal (N.m)")
+grid on
+
+subplot(3,1,2)
 plot(Ts*(1:N),theta*180/pi,"LineWidth",1)
 title("Ts = " + Ts + " and N = " + N + " ")
 ylabel("Agular Position (degrees)")
 grid on
 
-subplot(3,1,2)
-stairs(Ts*(1:N),u,"LineWidth",1)
-title("a = " + a + "")
-ylabel("Control Signal (N.m)")
-grid on
-
 subplot(3,1,3)
 plot(Ts*(1:N),((theta - theta_eq)*180/pi)/a,"LineWidth",1)
-title("Step Response")
+title("Unit Step Response")
 ylabel("Agular Position (degrees)")
 xlabel("Time (s)")
 grid on
