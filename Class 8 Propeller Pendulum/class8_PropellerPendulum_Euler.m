@@ -23,20 +23,23 @@ a = 0.01; % input magnitude
 ub = a*ones(1,N); % base input
 
 % Equilibrium point
-theta_eq = 15*pi/180; % desired equilibrium angle (intial position)
+theta_eq = 10*pi/180; % desired equilibrium angle (intial position)
 ueq = M*g*sin(theta_eq)*h + m*g*sin(theta_eq)*h/2; % input needed to keep the initial position
 
 u = ub + ueq*ones(1,N);
 
 % initial conditions
-theta1 = theta_eq;
-theta2 = theta_eq;
+theta1 = 0;
+theta2 = 0;
+theta = zeros(1,N);
 
 for k = 1:N
+
     theta(k) = 2*theta2 - theta1 + (Ts^2/Jeq)*(-M*g*h*sin(theta1) - m*g*h*sin(theta1)/2 - (b/Ts)*(theta2 - theta1) + u(k));
     theta1 = theta2;
     theta2 = theta(k);
     % theta(k+2) = 2*theta(k+1) - theta(k) + (Ts^2/Jeq)*(-M*g*h*sin(theta(k)) - m*g*h*sin(theta(k))/2 - (b/Ts)*(theta(k+1) - theta(k)) + u(k));
+    
 end
 
 subplot(3,1,1)

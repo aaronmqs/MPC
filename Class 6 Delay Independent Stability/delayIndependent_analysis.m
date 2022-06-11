@@ -9,8 +9,8 @@ close all;
 % That's because the maximum magnitude of the Bode diagram is 0dB (1)
 A0 = [-3 1;-2 0];
 A1 = [0 2]';
-K = -[0.9 0]; % The system is stable
-% K = -[1.1 0]; % The system is unstable
+% K = -[0.9 0]; % The closed system is stable
+K = -[1.1 0]; % The closed system is unstable
 
 P = sdpvar(size(A0,1));
 S = sdpvar(size(A0,1));

@@ -120,7 +120,7 @@ T = inv(M);
 Bo = cell2mat(Bo);
 TBo = M\Bo;
 Ab = [T;-T];
-um = 0;
+um = -1e-100;
 uM = 3;
 Umin = um*ones(size(M,1),1);
 Umax = uM*ones(size(M,1),1);
@@ -146,11 +146,19 @@ x{1} = zeros(size(A,2),1);
 % y2{1} = 0;
 y{1} = y1{1} + y2{1};
 
+% Reference filter
+r = 0;
+beta = 0.95;
+FR = (1-beta)*z/(z-beta);
+[rf,zrf] = filter([(1-beta),0],[1 -beta],0);
+
 for i = 1:Num-1
+
+    [rf(i),zrf] = filter([(1-beta),0],[1 -beta],r,zrf);
 
     e{i} = y{i} - H*x{i};
     f = F*x{i} + E*e{i};
-    b = 2*G'*(f - 1);
+    b = 2*G'*(f-rf(i));
     
     if i == 1
         TBo_u = zeros(size(Umax));
@@ -160,6 +168,12 @@ for i = 1:Num-1
 
     Bb = [Umax-TBo_u;TBo_u-Umin];
     Delta_U = quadprog(Hb,b,Ab,Bb); % control effort: Delta_U = [Delta_u(t) Delta_u(t+1) ... Delta_u(t + N - 1)]'
+
+    % Ensures Delta_U = 0 if the solution from quadprog is too small 
+    if norm(Delta_U) < 10^-4
+        Delta_U = [0 0]';
+    end
+
     U = M\Delta_U + TBo_u; % control signal: U = [u(t) u(t+1) ... u(t + N - 1)]'
     u{i} = [U(1) U(2)]'; % u(t) = [u1(t) u2(t)]'
 
@@ -192,6 +206,8 @@ u = cell2mat(u);
 
 subplot(2,1,1)
 plot(t,y,'k','LineWidth',3)
+hold on
+plot(t(1:end-1),rf)
 ylabel('Output Signal')
 legend('y(t)')
 grid on
